@@ -194,7 +194,7 @@ namespace SHA3KeccakCore
             0x8000000080008081, 0x8000000000008080, 0x0000000080000001, 0x8000000080008008
         };
 
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void Permute(ulong[] state)
         {
             ulong C0, C1;
