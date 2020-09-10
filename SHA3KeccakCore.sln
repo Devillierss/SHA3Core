@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30503.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BDB5C1C8-9CEF-4143-8EDD-CC2B0C3BFE14}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SHA3KeccakCore", "src\SHA3KeccakCore\SHA3KeccakCore.csproj", "{8B74801A-0AC7-40BA-8456-98F268752699}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8B74801A-0AC7-40BA-8456-98F268752699}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B74801A-0AC7-40BA-8456-98F268752699}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B74801A-0AC7-40BA-8456-98F268752699}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B74801A-0AC7-40BA-8456-98F268752699}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8B74801A-0AC7-40BA-8456-98F268752699} = {BDB5C1C8-9CEF-4143-8EDD-CC2B0C3BFE14}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0A045285-EC05-438B-A101-FA18E55191A5}
+	EndGlobalSection
+EndGlobal
