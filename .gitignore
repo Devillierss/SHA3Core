@@ -3,3 +3,5 @@ src/SHA3KeccakCore/obj
 src/SHA3KeccakCore/bin/Debug/netcoreapp3.1/SHA3KeccakCore.deps.json
 src/SHA3KeccakCore/bin/Debug/netcoreapp3.1/SHA3KeccakCore.dll
 src/SHA3KeccakCore/bin/Debug/netcoreapp3.1/SHA3KeccakCore.pdb
+tests/UnitTests/bin
+tests/UnitTests/obj
