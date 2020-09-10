@@ -5,3 +5,5 @@ src/SHA3KeccakCore/bin/Debug/netcoreapp3.1/SHA3KeccakCore.dll
 src/SHA3KeccakCore/bin/Debug/netcoreapp3.1/SHA3KeccakCore.pdb
 tests/UnitTests/bin
 tests/UnitTests/obj
+BenchMark/BenchMarks/bin
+BenchMark/BenchMarks/obj
