@@ -1,5 +1,5 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=29c25a4e_002D18ae_002D4c3d_002D83a6_002D8acbebb7a08d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from KeccakTests.cs" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=29c25a4e_002D18ae_002D4c3d_002D83a6_002D8acbebb7a08d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from KeccakTests.cs" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;ProjectFile&gt;FC653BAF-6AA3-4AB2-AE9C-B85DDDC1883F/f:KeccakTests.cs&lt;/ProjectFile&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=7dbdbf98_002D6ebe_002D491b_002Dac4f_002D3e6522032760/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Add_Sentence_Returns_Hash_Bytes" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
