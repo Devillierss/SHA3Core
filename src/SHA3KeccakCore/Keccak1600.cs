@@ -10,11 +10,11 @@ namespace SHA3KeccakCore
         /// <summary>
         /// The rate in bytes of the sponge state.
         /// </summary>
-        private readonly int _rateBytes;
+        private int _rateBytes;
         /// <summary>
         /// The output length of the hash.
         /// </summary>
-        private readonly int _outputLength;
+        private int _outputLength;
         /// <summary>
         /// The state block size.
         /// </summary>
@@ -29,19 +29,21 @@ namespace SHA3KeccakCore
         /// </summary>
         private byte[] _result;
 
-        private readonly int _hashType;
+        private int _hashType;
 
         private byte[] _extracted;
 
-        public Keccak1600(KeccakConfiguration configuration)
+        public Keccak1600()
+        {
+            
+        }
+
+        public void Initialize(KeccakConfiguration configuration)
         {
             _rateBytes = configuration.RateBytes;
             _outputLength = configuration.OutputLength;
             _hashType = (int)configuration.HashType;
-        }
 
-        public void Initialize()
-        {
             _blockSize = default;
             _state = new ulong[25];
             _result = new byte[_outputLength];

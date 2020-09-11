@@ -3,6 +3,7 @@ using System.Text;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
 using SHA3KeccakCore;
+using SHA3KeccakCore.Enums;
 using SHA3KeccakCore.Keccak;
 
 namespace BenchMarks
@@ -51,7 +52,7 @@ namespace BenchMarks
         {
             //var keccack = new Keccak1600(72, 64, HashType.Keccak);
 
-            var keccack = new Keccak();
+            var keccack = new Keccak(KeccakBitType.K512);
 
             var result = keccack.Hash(sentence);
 

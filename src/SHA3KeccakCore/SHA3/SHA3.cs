@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using SHA3KeccakCore.Enums;
 
 namespace SHA3KeccakCore.SHA3
 {
     public class SHA3 : Keccak1600
     {
-        public SHA3():base(new KeccakConfiguration(){ RateBytes = 72, OutputLength = 64, HashType = HashType.Sha3 })
+
+        private readonly int _rateBytes;
+        private readonly int _sha3Bits;
+
+        public SHA3(SHA3BitType bitType)
         {
-                
+            _sha3Bits = (int)bitType;
+            _rateBytes = Converters.ConvertBitLengthToRate(_sha3Bits);
         }
 
         public string Hash(string stringToHash)
@@ -16,20 +22,13 @@ namespace SHA3KeccakCore.SHA3
 
             var encodedBytes = Converters.ConvertStringToBytes(stringToHash);
 
-            base.Initialize();
+            base.Initialize(new KeccakConfiguration() { RateBytes = _rateBytes, OutputLength = _sha3Bits / 8, HashType = HashType.Sha3 });
             base.Absorb(encodedBytes, 0, encodedBytes.Length);
             base.Partial(encodedBytes, 0, encodedBytes.Length);
 
             var byteResult = base.Squeeze();
 
             return Converters.ConvertBytesToStringHash(byteResult);
-
-            //keccack.Initialize();
-            //keccack.Absorb(_encodedBytes, 0, _encodedBytes.Length);
-            //keccack.Partial(_encodedBytes, 0, _encodedBytes.Length);
-
-            //var byteResult = keccack.Squeeze();
-            //var result = BitConverter.ToString(byteResult).Replace("-", string.Empty);
         }
     }
 }

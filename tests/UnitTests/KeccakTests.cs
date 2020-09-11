@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using NUnit.Framework;
 using SHA3KeccakCore;
+using SHA3KeccakCore.Enums;
 using SHA3KeccakCore.Keccak;
 using SHA3KeccakCore.SHA3;
 
@@ -28,7 +29,7 @@ namespace UnitTests
         {
             string expectedResult = "c5d7346779f640937c4d8c538259a5c6edc871b01288fc0a80d4b10f32cf2df7c5a844268748acfd2c71219d636e522c755c84184a823698fa334b2844d5eaf3";
 
-            var keccack = new Keccak();
+            var keccack = new Keccak(KeccakBitType.K512);
 
             var result = keccack.Hash(sentence);
 
@@ -45,9 +46,9 @@ namespace UnitTests
         [Test(Description = "SHA3 512 Test")]
         public void Add_Sentence_Returns_SHA3_Hash_Bytes()
         {
-            string expectedResult = "c5d7346779f640937c4d8c538259a5c6edc871b01288fc0a80d4b10f32cf2df7c5a844268748acfd2c71219d636e522c755c84184a823698fa334b2844d5eaf3";
+            string expectedResult = "8c4cf7ec3a273adc1b323ea5500c883576d1d24b9f656b36874b812c591a02dc93107547208853792fff06a94c9d8e83b9d9a7521a71a9e7c511119fe600c46f";
 
-            var sha3 = new SHA3();
+            var sha3 = new SHA3(SHA3BitType.S512);
 
             var result = sha3.Hash(sentence);
 

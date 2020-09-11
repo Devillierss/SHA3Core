@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using SHA3KeccakCore.Enums;
 
 namespace SHA3KeccakCore
 {
