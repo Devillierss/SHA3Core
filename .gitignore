@@ -7,3 +7,4 @@ tests/UnitTests/bin
 tests/UnitTests/obj
 BenchMark/BenchMarks/bin
 BenchMark/BenchMarks/obj
+src/SHA3KeccakCore/bin
