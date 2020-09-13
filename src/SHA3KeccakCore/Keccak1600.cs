@@ -10,11 +10,11 @@ namespace SHA3KeccakCore
         /// <summary>
         /// The rate in bytes of the sponge state.
         /// </summary>
-        private int _rateBytes;
+        private readonly int _rateBytes;
         /// <summary>
         /// The output length of the hash.
         /// </summary>
-        private int _outputLength;
+        private readonly int _outputLength;
         /// <summary>
         /// The state block size.
         /// </summary>
@@ -33,16 +33,20 @@ namespace SHA3KeccakCore
 
         private byte[] _extracted;
 
-        public Keccak1600()
+
+        public Keccak1600(int bits)
         {
-            
+            _rateBytes = Converters.ConvertBitLengthToRate(bits);
+            _outputLength = bits / 8;
         }
 
-        public void Initialize(KeccakConfiguration configuration)
+        public void Initialize(int hashType)
         {
-            _rateBytes = configuration.RateBytes;
-            _outputLength = configuration.OutputLength;
-            _hashType = (int)configuration.HashType;
+            _hashType = hashType;
+
+            //_rateBytes = configuration.RateBytes;
+            //_outputLength = configuration.OutputLength;
+            //_hashType = (int)configuration.HashType;
 
             _blockSize = default;
             _state = new ulong[25];
@@ -53,6 +57,7 @@ namespace SHA3KeccakCore
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected void Absorb(byte[] array, int start, int size)
         {
+            var counter = 0;
             var offSet = 0;
             while (size > 0)
             {
@@ -67,6 +72,7 @@ namespace SHA3KeccakCore
 
                 if (_blockSize != _rateBytes) continue;
                 KeccakPermuteHelpers.Permute(_state);
+                counter += _rateBytes;
                 _blockSize = 0;
             }
         }
@@ -74,17 +80,18 @@ namespace SHA3KeccakCore
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected void Partial(byte[] array, int start, int size)
         {
-            var mod = size % 72;
-            var finalRound = mod / 8;
-            var mod2 = mod % 8;
+            var mod = (size % _rateBytes) % 8;
+            var finalRound = (size % _rateBytes) / 8;
+
+
+
             var partial = new byte[8];
 
-            //Buffer.BlockCopy(array, size - mod2, partial, 0, mod2);
-            Array.Copy(array, size - mod2, partial, 0, mod2);
-            partial[mod2] = (byte)_hashType;
+            Array.Copy(array, size - mod, partial, 0, mod);
+            partial[mod] = (byte)_hashType;
             _state[finalRound] ^= KeccakPermuteHelpers.AddStateBuffer(partial, 0);
 
-            _state[8] ^= (1UL << 63);
+            _state[(_rateBytes - 1)>>3] ^= (1UL << 63);
 
             KeccakPermuteHelpers.Permute(_state);
 
