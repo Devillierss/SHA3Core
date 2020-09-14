@@ -5,10 +5,10 @@ using System.Text;
 
 namespace SHA3KeccakCore
 {
-    public class Converters
+    public static class Converters
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static byte[] ConvertStringToBytes(string hash)
+        public static byte[] ConvertStringToBytes(string hash)
         {
             return Encoding.ASCII.GetBytes(hash);
         }

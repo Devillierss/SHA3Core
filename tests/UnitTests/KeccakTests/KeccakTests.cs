@@ -2,20 +2,17 @@ using System;
 using System.Runtime.InteropServices;
 using System.Text;
 using NUnit.Framework;
+using Org.BouncyCastle.Crypto.Digests;
 using SHA3KeccakCore;
 using SHA3KeccakCore.Enums;
 using SHA3KeccakCore.Keccak;
 using SHA3KeccakCore.SHA3;
 
-namespace UnitTests
+namespace UnitTests.KeccakTests
 {
     public class KeccakTests
     {
-
-        public byte[] _encodedBytes;
-
         string sentence = "“The French are certainly misunderstood: — but whether the fault is theirs, in not sufficiently explaining themselves, or speaking with that exact limitation and precision which one would expect on a point of such importance, and which, moreover, is so likely to be contested by us — or whether the fault may not be altogether on our side, in not understanding their language always so critically as to know “what they would be at” — I shall not decide; but ‘tis evident to me, when they affirm, “That they who have seen Paris, have seen every thing,” they must mean to speak of those who have seen it by day-light.”LL";
-        //string sentence = "TESTS";
 
 
         [Test(Description = "Keccak 128 Test")]
@@ -91,82 +88,53 @@ namespace UnitTests
         }
 
 
-        [Test(Description = "SHA3 224 Test")]
-        public void Add_Sentence_Returns_SHA3_224_Hash_Bytes()
+        private string hex2binary(string hexvalue) { string binaryval = ""; binaryval = Convert.ToString(Convert.ToInt64(hexvalue, 16), 2); return binaryval; }
+
+
+        [Test]
+        [Repeat(10)]
+        public void Test()
         {
-            string expectedResult = "c854ecc2c0e97e265e4e0c263851e4ee75838c2e65f551af05c42f3a";
+            //var random = "1F42ADD25C0A80A4C82AAE3A0E302ABF9261DCA7E7884FD869D96ED4CE88AAAA25304D2D79E1FA5CC1FA2C95899229BC87431AD06DA524F2140E70BD0536E9685EE7808F598D8A9FE15D40A72AEFF431239292C5F64BDB7F620E5D160B329DEB58CF6D5C0665A3DED61AE4ADBCA94DC2B7B02CDF3992FDF79B3D93E546D5823C3A630923064ED24C3D974C4602A49DF75E49CF7BD51EDC7382214CBA850C4D3D11B40A70B1D926E3755EC79693620C242AB0F23EA206BA337A7EDC5421D63126CB6C7094F6BC1CF9943796BE2A0D9EB74FC726AA0C0D3B3D39039DEAD39A7169F8C3E2365DD349E358BF08C717D2E436D65172A76ED5E1F1E694A75C19280B15";
 
-            var sha3 = new SHA3(SHA3BitType.S224);
+            //var og = hex2binary(random);
 
-            var result = sha3.Hash(sentence);
+            //var random = "1F42ADD25C0A80A4C82AAE3A0E302ABF9261DCA7E7884FD869D96ED4CE88AAAA25304D2D79E1FA5CC1FA2C95899229BC87431AD06DA524F2140E70BD0536E9685EE7808F598D8A9FE15D40A72AEFF431239292C5F64BDB7F620E5D160B329DEB58CF6D5C0665A3DED61AE4ADBCA94DC2B7B02CDF3992FDF79B3D93E546D5823C3A630923064ED24C3D974C4602A49DF75E49CF7BD51EDC7382214CBA850C4D3D11B40A70B1D926E3755EC79693620C242AB0F23EA206BA337A7EDC5421D63126CB6C7094F6BC1CF9943796BE2A0D9EB74FC726AA0C0D3B3D39039DEAD39A7169F8C3E2365DD349E358BF08C717D2E436D65172A76ED5E1F1E694A75C19280B15";
+            //var random = new Bogus.Randomizer();
+            var lorem = new Bogus.DataSets.Lorem("en");
+
+            var randomint = new Random().Next(1000);
+
+            var go = lorem.Paragraph(randomint);
+
+            var keccack = new Keccak(KeccakBitType.K512);
+
+            var result = keccack.Hash(go);
+            var expectedResult = BouncingCastleHash(go);
 
             Assert.AreEqual(expectedResult, result);
+
+            Console.WriteLine(go);
+
         }
 
 
-        [Test(Description = "SHA3 256 Test")]
-        public void Add_Sentence_Returns_SHA3_256_Hash_Bytes()
+        private string BouncingCastleHash(string testString)
         {
-            string expectedResult = "ce9c06f5ba188ac595a30c887a7539a74d5d682c2f5ce16d43ff163d98e5efb8";
+            var encodedBytes =Converters.ConvertStringToBytes(testString);
 
-            var sha3 = new SHA3(SHA3BitType.S256);
 
-            var result = sha3.Hash(sentence);
 
-            Assert.AreEqual(expectedResult, result);
+            KeccakDigest test = new KeccakDigest(512);
+
+            var hashValue = new byte[test.GetDigestSize()];
+
+            test.BlockUpdate(encodedBytes, 0, encodedBytes.Length);
+
+            test.DoFinal(hashValue, 0);
+
+            return BitConverter.ToString(hashValue).Replace("-", string.Empty).ToLower();
         }
-
-        [Test(Description = "SHA3 384 Test")]
-        public void Add_Sentence_Returns_SHA3_384_Hash_Bytes()
-        {
-            string expectedResult = "90605b5796ab39964f46dcca1a808168a9e0d7db7a518c11ba2fa28323a9f5a4f265ddf999caa318162f23bfa57f0ad0";
-
-            var sha3 = new SHA3(SHA3BitType.S384);
-
-            var result = sha3.Hash(sentence);
-
-            Assert.AreEqual(expectedResult, result);
-        }
-
-
-        [Test(Description = "SHA3 512 Test")]
-        public void Add_Sentence_Returns_SHA3_512_Hash_Bytes()
-        {
-            string expectedResult = "8c4cf7ec3a273adc1b323ea5500c883576d1d24b9f656b36874b812c591a02dc93107547208853792fff06a94c9d8e83b9d9a7521a71a9e7c511119fe600c46f";
-
-            var sha3 = new SHA3(SHA3BitType.S512);
-
-            var result = sha3.Hash(sentence);
-
-            Assert.AreEqual(expectedResult, result);
-        }
-
-        [Test(Description = "SHA3 Shake 128 Test")]
-        public void Add_Sentence_Returns_SHA3_Shake_128_Hash_Bytes()
-        {
-            string expectedResult = "39977a3f5877f0077c5c26cf76cb047b";
-
-            var sha3 = new SHA3Shake(ShakeBitType.S128);
-
-            var result = sha3.Hash(sentence);
-
-            Assert.AreEqual(expectedResult, result);
-        }
-
-        [Test(Description = "SHA3 Shake 256 Test")]
-        public void Add_Sentence_Returns_SHA3_Shake_256_Hash_Bytes()
-        {
-            string expectedResult = "868f7cbb3d9bdb3c298f86ce11fec4b858c192c059a79e0247ab43c7b7de244c";
-
-            var sha3 = new SHA3Shake(ShakeBitType.S256);
-
-            var result = sha3.Hash(sentence);
-
-            Assert.AreEqual(expectedResult, result);
-        }
-
-       
-
 
 
     }

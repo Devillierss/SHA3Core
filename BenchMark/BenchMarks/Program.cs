@@ -47,7 +47,7 @@ namespace BenchMarks
         //    var result = BitConverter.ToString(byteResult).Replace("-", string.Empty);
         //}
 
-        [Benchmark]
+        [Benchmark(OperationsPerInvoke = 10000000)]
         public void KeccakDotNetWitHelper()
         {
             //var keccack = new Keccak1600(72, 64, HashType.Keccak);
