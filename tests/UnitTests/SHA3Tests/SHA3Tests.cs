@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using Org.BouncyCastle.Crypto.Digests;
+using SHA3KeccakCore;
 using SHA3KeccakCore.Enums;
 using SHA3KeccakCore.SHA3;
 
@@ -12,6 +15,71 @@ namespace UnitTests.SHA3Tests
     {
         string sentence = "“The French are certainly misunderstood: — but whether the fault is theirs, in not sufficiently explaining themselves, or speaking with that exact limitation and precision which one would expect on a point of such importance, and which, moreover, is so likely to be contested by us — or whether the fault may not be altogether on our side, in not understanding their language always so critically as to know “what they would be at” — I shall not decide; but ‘tis evident to me, when they affirm, “That they who have seen Paris, have seen every thing,” they must mean to speak of those who have seen it by day-light.”LL";
         //string sentence = "";
+
+        private string _1000000;// = new String(new char()., 1000000);
+        private byte[] _holyshit = new byte[1073741824];
+
+
+        private static StringBuilder DuplicateString(string duplicate, int iterations)
+        {
+            return new StringBuilder(duplicate.Length * iterations).AppendJoin(duplicate, new string[iterations +1]);
+        }
+
+
+        [SetUp]
+        public void Setup()
+        {
+            _1000000 = string.Concat(Enumerable.Repeat("a", 1000000));
+
+            //_holyShit = string.Concat(Enumerable.Repeat("abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmno", 16777216));
+
+
+            byte[] test = Converters.ConvertStringToBytes("abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmno");
+
+
+            
+
+            int lastDestination = 0;
+
+
+            //for (int i = 0; i < 16777216; i++)
+            //{
+            //    Array.Copy(test,0, holyshit, );
+            //}
+
+            for (int i = 0; i < 16777216; i++)
+            {
+
+                Array.Copy(test, 0, _holyshit, lastDestination, test.Length);
+                lastDestination += test.Length;
+            }
+
+
+       
+
+            Console.WriteLine(test);
+
+            //_1000000 = DuplicateString("a", 1000000);
+            //var test = DuplicateString("abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmno", 16777216);
+
+
+            var tosting = test.ToString();
+
+            Console.WriteLine("fook");
+        }
+
+        [Test]
+        public void A_1_000_000Test()
+        {
+            string expectedResult = "d69335b93325192e516a912e6d19a15cb51c6ed5c15243e7a7fd653c";
+
+            var sha3 = new SHA3(SHA3BitType.S224);
+
+            var result = sha3.Hash(_1000000);
+            var resultHuge = sha3.Hash(_holyshit);
+
+            Assert.AreEqual(expectedResult, result);
+        }
 
 
         [Test(Description = "SHA3 224 Test")]
@@ -69,16 +137,20 @@ namespace UnitTests.SHA3Tests
         public void test()
         {
 
-            byte[] bytes = new byte[4];
-            bytes[0] = 83;
-            bytes[1] = 88;
-            bytes[2] = 123;
-            bytes[3] = 25;
+            //byte[] bytes = new byte[4];
+            //bytes[0] = 83;
+            //bytes[1] = 88;
+            //bytes[2] = 123;
+            //bytes[3] = 25;
+
+            byte[] bytes = new byte[1];
+            bytes[0] = 19;
 
 
             var sha3 = new SHA3(SHA3BitType.S224);
 
             var result = sha3.Hash(bytes);
+            var onemore = sha3.Hash("abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmnoijklmnopjklmnopqklmnopqrlmnopqrsmnopqrstnopqrstu");
 
             Sha3Digest test = new Sha3Digest(224);
 
