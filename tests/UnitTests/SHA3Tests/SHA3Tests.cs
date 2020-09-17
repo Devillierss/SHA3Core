@@ -18,6 +18,7 @@ namespace UnitTests.SHA3Tests
 
         private string _1000000;// = new String(new char()., 1000000);
         private byte[] _holyshit = new byte[1073741824];
+        //private string _holyShit;
 
 
         private static StringBuilder DuplicateString(string duplicate, int iterations)
@@ -30,6 +31,9 @@ namespace UnitTests.SHA3Tests
         public void Setup()
         {
             _1000000 = string.Concat(Enumerable.Repeat("a", 1000000));
+
+            //var newstring = new StringBuilder();
+            //var ok = DuplicateString("abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmno", 16777216);
 
             //_holyShit = string.Concat(Enumerable.Repeat("abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmno", 16777216));
 
@@ -55,7 +59,7 @@ namespace UnitTests.SHA3Tests
             }
 
 
-       
+
 
             Console.WriteLine(test);
 

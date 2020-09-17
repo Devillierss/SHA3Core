@@ -26,5 +26,18 @@ namespace SHA3KeccakCore.Keccak
 
             return Converters.ConvertBytesToStringHash(byteResult);
         }
+
+        public string Hash(byte[] bytesToHash)
+        {
+
+
+            base.Initialize((int)HashType.Keccak);
+            base.Absorb(bytesToHash, 0, bytesToHash.Length);
+            base.Partial(bytesToHash, 0, bytesToHash.Length);
+
+            var byteResult = base.Squeeze();
+
+            return Converters.ConvertBytesToStringHash(byteResult);
+        }
     }
 }
