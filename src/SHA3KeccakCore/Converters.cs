@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace SHA3KeccakCore
+namespace SHA3Core
 {
     public static class Converters
     {

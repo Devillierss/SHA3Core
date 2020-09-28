@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 
-namespace SHA3KeccakCore
+namespace SHA3Core
 {
     public class Keccak1600
     {

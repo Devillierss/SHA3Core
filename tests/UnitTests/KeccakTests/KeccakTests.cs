@@ -1,12 +1,9 @@
 using System;
-using System.Runtime.InteropServices;
-using System.Text;
 using NUnit.Framework;
 using Org.BouncyCastle.Crypto.Digests;
-using SHA3KeccakCore;
-using SHA3KeccakCore.Enums;
-using SHA3KeccakCore.Keccak;
-using SHA3KeccakCore.SHA3;
+using SHA3Core;
+using SHA3Core.Enums;
+using SHA3Core.Keccak;
 
 namespace UnitTests.KeccakTests
 {

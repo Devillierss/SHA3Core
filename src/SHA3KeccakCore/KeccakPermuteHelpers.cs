@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Text;
+﻿using System.Runtime.CompilerServices;
 
-namespace SHA3KeccakCore
+namespace SHA3Core
 {
     internal sealed class KeccakPermuteHelpers
     {

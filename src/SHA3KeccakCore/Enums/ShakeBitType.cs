@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
+﻿using System.ComponentModel;
 
-namespace SHA3KeccakCore.Enums
+namespace SHA3Core.Enums
 {
     public enum ShakeBitType
     {

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SHA3KeccakCore.Enums;
+﻿using SHA3Core.Enums;
 
-namespace SHA3KeccakCore
+namespace SHA3Core
 {
     public class KeccakConfiguration
     {

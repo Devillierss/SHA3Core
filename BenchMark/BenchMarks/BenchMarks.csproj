@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\SHA3KeccakCore\SHA3KeccakCore.csproj" />
+    <ProjectReference Include="..\..\src\SHA3KeccakCore\SHA3Core.csproj" />
   </ItemGroup>
 
 </Project>

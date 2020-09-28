@@ -2,10 +2,8 @@
 using System.Text;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
-using SHA3KeccakCore;
-using SHA3KeccakCore.Enums;
-using SHA3KeccakCore.Keccak;
-using SHA3KeccakCore.SHA3;
+using SHA3Core.Enums;
+using SHA3Core.Keccak;
 
 namespace BenchMarks
 {

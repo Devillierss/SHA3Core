@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
-using SHA3KeccakCore.Enums;
-using SHA3KeccakCore.SHA3;
+using SHA3Core.Enums;
+using SHA3Core.SHA3;
+
 
 namespace UnitTests.SHA3ShakeTests
 {

@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using Org.BouncyCastle.Crypto.Digests;
-using SHA3KeccakCore;
-using SHA3KeccakCore.Enums;
-using SHA3KeccakCore.SHA3;
+using SHA3Core;
+using SHA3Core.Enums;
+using SHA3Core.SHA3;
 
 namespace UnitTests.SHA3Tests
 {
@@ -17,7 +17,7 @@ namespace UnitTests.SHA3Tests
         //string sentence = "";
 
         private string _1000000;// = new String(new char()., 1000000);
-        private byte[] _holyshit = new byte[1073741824];
+        //private byte[] _holyshit = new byte[1073741824];
         //private string _holyShit;
 
 
@@ -30,7 +30,7 @@ namespace UnitTests.SHA3Tests
         [SetUp]
         public void Setup()
         {
-            _1000000 = string.Concat(Enumerable.Repeat("a", 1000000));
+            //_1000000 = string.Concat(Enumerable.Repeat("a", 1000000));
 
             //var newstring = new StringBuilder();
             //var ok = DuplicateString("abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmno", 16777216);
@@ -38,12 +38,12 @@ namespace UnitTests.SHA3Tests
             //_holyShit = string.Concat(Enumerable.Repeat("abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmno", 16777216));
 
 
-            byte[] test = Converters.ConvertStringToBytes("abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmno");
+            //byte[] test = Converters.ConvertStringToBytes("abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmno");
 
 
             
 
-            int lastDestination = 0;
+            //int lastDestination = 0;
 
 
             //for (int i = 0; i < 16777216; i++)
@@ -51,27 +51,28 @@ namespace UnitTests.SHA3Tests
             //    Array.Copy(test,0, holyshit, );
             //}
 
-            for (int i = 0; i < 16777216; i++)
-            {
+            //for (int i = 0; i < 16777216; i++)
+            //{
 
-                Array.Copy(test, 0, _holyshit, lastDestination, test.Length);
-                lastDestination += test.Length;
-            }
-
-
+            //    Array.Copy(test, 0, _holyshit, lastDestination, test.Length);
+            //    lastDestination += test.Length;
+            //}
 
 
-            Console.WriteLine(test);
+
+
+            //Console.WriteLine(test);
 
             //_1000000 = DuplicateString("a", 1000000);
             //var test = DuplicateString("abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmno", 16777216);
 
 
-            var tosting = test.ToString();
+            //var tosting = test.ToString();
 
-            Console.WriteLine("fook");
+            //Console.WriteLine("fook");
         }
 
+        
         [Test]
         public void A_1_000_000Test()
         {
@@ -80,7 +81,14 @@ namespace UnitTests.SHA3Tests
             var sha3 = new SHA3(SHA3BitType.S224);
 
             var result = sha3.Hash(_1000000);
-            var resultHuge = sha3.Hash(_holyshit);
+
+
+            var test = SetupTestSharedData.GetSha3TestVectors();
+
+
+
+
+            var resultHuge = sha3.Hash(test[""]);
 
             Assert.AreEqual(expectedResult, result);
         }
@@ -137,37 +145,18 @@ namespace UnitTests.SHA3Tests
             Assert.AreEqual(expectedResult, result);
         }
 
-        [Test]
-        public void test()
+        //[Test, TestCaseSource(typeof(SetupTestSharedData)),
+
+        [Test, TestCaseSource(typeof(SetupTestSharedData), "GetSha224")]
+        public void TestDynamic224(TestDataValues testDataValues)
         {
-
-            //byte[] bytes = new byte[4];
-            //bytes[0] = 83;
-            //bytes[1] = 88;
-            //bytes[2] = 123;
-            //bytes[3] = 25;
-
-            byte[] bytes = new byte[1];
-            bytes[0] = 19;
-
-
             var sha3 = new SHA3(SHA3BitType.S224);
+            
+            var result = testDataValues.InputMessage == null ? sha3.Hash(testDataValues.InputBytes) : sha3.Hash(testDataValues.InputMessage);
 
-            var result = sha3.Hash(bytes);
-            var onemore = sha3.Hash("abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmnoijklmnopjklmnopqklmnopqrlmnopqrsmnopqrstnopqrstu");
-
-            Sha3Digest test = new Sha3Digest(224);
-
-            var hashValue = new byte[test.GetDigestSize()];
-
-            test.BlockUpdate(bytes, 0, bytes.Length);
-
-            test.DoFinal(hashValue, 0);
-
-            var bounciongResult = BitConverter.ToString(hashValue).Replace("-", string.Empty).ToLower();
+            Assert.AreEqual(testDataValues.ExpectedResult, result);
 
 
-            Console.WriteLine(test);
         }
     }
 }
