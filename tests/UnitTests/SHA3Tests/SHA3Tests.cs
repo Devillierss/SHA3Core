@@ -31,49 +31,49 @@ namespace UnitTests.SHA3Tests
         //[SetUp]
         //public void Setup()
         //{
-            //_1000000 = string.Concat(Enumerable.Repeat("a", 1000000));
+        //_1000000 = string.Concat(Enumerable.Repeat("a", 1000000));
 
-            //var newstring = new StringBuilder();
-            //var ok = DuplicateString("abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmno", 16777216);
+        //var newstring = new StringBuilder();
+        //var ok = DuplicateString("abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmno", 16777216);
 
-            //_holyShit = string.Concat(Enumerable.Repeat("abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmno", 16777216));
-
-
-            //byte[] test = Converters.ConvertStringToBytes("abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmno");
+        //_holyShit = string.Concat(Enumerable.Repeat("abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmno", 16777216));
 
 
-            
-
-            //int lastDestination = 0;
-
-
-            //for (int i = 0; i < 16777216; i++)
-            //{
-            //    Array.Copy(test,0, holyshit, );
-            //}
-
-            //for (int i = 0; i < 16777216; i++)
-            //{
-
-            //    Array.Copy(test, 0, _holyshit, lastDestination, test.Length);
-            //    lastDestination += test.Length;
-            //}
+        //byte[] test = Converters.ConvertStringToBytes("abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmno");
 
 
 
 
-            //Console.WriteLine(test);
-
-            //_1000000 = DuplicateString("a", 1000000);
-            //var test = DuplicateString("abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmno", 16777216);
+        //int lastDestination = 0;
 
 
-            //var tosting = test.ToString();
-
-            //Console.WriteLine("fook");
+        //for (int i = 0; i < 16777216; i++)
+        //{
+        //    Array.Copy(test,0, holyshit, );
         //}
 
-        
+        //for (int i = 0; i < 16777216; i++)
+        //{
+
+        //    Array.Copy(test, 0, _holyshit, lastDestination, test.Length);
+        //    lastDestination += test.Length;
+        //}
+
+
+
+
+        //Console.WriteLine(test);
+
+        //_1000000 = DuplicateString("a", 1000000);
+        //var test = DuplicateString("abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmno", 16777216);
+
+
+        //var tosting = test.ToString();
+
+        //Console.WriteLine("fook");
+        //}
+
+
         //[Test]
         //public void A_1_000_000Test()
         //{
@@ -152,7 +152,7 @@ namespace UnitTests.SHA3Tests
         //public void TestDynamic224(TestDataValues testDataValues)
         //{
         //    var sha3 = new SHA3(SHA3BitType.S224);
-            
+
         //    var result = testDataValues.InputMessage == null ? sha3.Hash(testDataValues.InputBytes) : sha3.Hash(testDataValues.InputMessage);
 
         //    Assert.AreEqual(testDataValues.ExpectedResult, result);
@@ -160,7 +160,7 @@ namespace UnitTests.SHA3Tests
 
         //}
 
-        [TestCaseSource(typeof(SetupTestSharedData), "GetSha224")]
+        [Test, TestCaseSource(typeof(SetupTestSharedData), "GetSha224")]
         public string TestTestcase(TestDataValues testDataValues)
         {
             //TestCaseData display = new TestCaseData();
