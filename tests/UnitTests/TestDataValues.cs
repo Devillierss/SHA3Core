@@ -10,8 +10,6 @@ namespace UnitTests
 
         public byte[] InputBytes { get; set; }
 
-        public Type HashType { get; set; }
-
         public int BitLength { get; set; }
 
     }

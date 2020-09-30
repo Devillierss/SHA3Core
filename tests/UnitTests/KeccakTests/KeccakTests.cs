@@ -1,5 +1,8 @@
 using System;
+using System.Diagnostics;
+using System.IO;
 using NUnit.Framework;
+using NUnit.Framework.Constraints;
 using Org.BouncyCastle.Crypto.Digests;
 using SHA3Core;
 using SHA3Core.Enums;
@@ -115,24 +118,52 @@ namespace UnitTests.KeccakTests
 
         //}
 
+        //[TestCaseSource(typeof(SetupTestSharedData), "ReturnSHA3TestCases")]
+        public string BouncingCastleHash(TestDataValues testDataValues)
+        {
 
-        //private string BouncingCastleHash(string testString)
-        //{
-        //    var encodedBytes =Converters.ConvertStringToBytes(testString);
+            byte[] encodedBytes;
 
-
-
-        //    KeccakDigest test = new KeccakDigest(512);
-
-        //    var hashValue = new byte[test.GetDigestSize()];
-
-        //    test.BlockUpdate(encodedBytes, 0, encodedBytes.Length);
-
-        //    test.DoFinal(hashValue, 0);
-
-        //    return BitConverter.ToString(hashValue).Replace("-", string.Empty).ToLower();
-        //}
+            if (testDataValues.InputBytes == null)
+            {
+                encodedBytes = Converters.ConvertStringToBytes(testDataValues.InputMessage);
+            }
+            else
+            {
+                encodedBytes = testDataValues.InputBytes;
+            }
 
 
+
+
+            //KeccakDigest test = new KeccakDigest(testDataValues.BitLength);
+
+            //Sha3Digest test = new Sha3Digest(testDataValues.BitLength);
+
+            ShakeDigest test = new ShakeDigest(testDataValues.BitLength);
+
+            var hashValue = new byte[test.GetDigestSize()];
+
+            test.BlockUpdate(encodedBytes, 0, encodedBytes.Length);
+
+            test.DoFinal(hashValue, 0);
+
+            var result = BitConverter.ToString(hashValue).Replace("-", string.Empty).ToLower();
+
+            string stringtowrite = $"{testDataValues.BitLength}  {result}";
+
+            using ( StreamWriter output = File.AppendText(@"C:\temp\Shake.Txt"))
+            {
+                output.WriteLine(stringtowrite);
+            }
+
+
+            
+
+            Debug.WriteLine(result);
+            return result;
+        }
+
+        
     }
 }
