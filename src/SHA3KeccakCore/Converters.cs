@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace SHA3KeccakCore
+namespace SHA3Core
 {
-    public class Converters
+    public static class Converters
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static byte[] ConvertStringToBytes(string hash)
+        public static byte[] ConvertStringToBytes(string hash)
         {
             return Encoding.ASCII.GetBytes(hash);
         }

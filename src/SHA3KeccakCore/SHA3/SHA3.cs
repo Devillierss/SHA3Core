@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SHA3KeccakCore.Enums;
+﻿using SHA3Core.Enums;
 
-namespace SHA3KeccakCore.SHA3
+namespace SHA3Core.SHA3
 {
     public class SHA3 : Keccak1600
     {
@@ -20,6 +17,17 @@ namespace SHA3KeccakCore.SHA3
             base.Initialize((int)HashType.Sha3);
             base.Absorb(encodedBytes, 0, encodedBytes.Length);
             base.Partial(encodedBytes, 0, encodedBytes.Length);
+
+            var byteResult = base.Squeeze();
+
+            return Converters.ConvertBytesToStringHash(byteResult);
+        }
+
+        public string Hash(byte[] bytesToHash)
+        {
+            base.Initialize((int) HashType.Sha3);
+            base.Absorb(bytesToHash, 0, bytesToHash.Length);
+            base.Partial(bytesToHash, 0, bytesToHash.Length);
 
             var byteResult = base.Squeeze();
 

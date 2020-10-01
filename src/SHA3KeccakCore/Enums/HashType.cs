@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SHA3KeccakCore.Enums
+﻿namespace SHA3Core.Enums
 {
     public enum HashType
     {

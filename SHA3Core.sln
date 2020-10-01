@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BDB5C1C8-9CEF-4143-8EDD-CC2B0C3BFE14}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SHA3KeccakCore", "src\SHA3KeccakCore\SHA3KeccakCore.csproj", "{8B74801A-0AC7-40BA-8456-98F268752699}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SHA3Core", "src\SHA3KeccakCore\SHA3Core.csproj", "{8B74801A-0AC7-40BA-8456-98F268752699}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2ED9B9E7-5D5D-43B2-98B5-70AF5E66981A}"
 EndProject
@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "tests\UnitTest
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BenchMark", "BenchMark", "{989BBD96-FAAB-4297-A56D-CD56F07F8370}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BenchMarks", "BenchMark\BenchMarks\BenchMarks.csproj", "{1EC8566F-7461-43D4-818D-23F2F0357D7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BenchMarks", "BenchMark\BenchMarks\BenchMarks.csproj", "{1EC8566F-7461-43D4-818D-23F2F0357D7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

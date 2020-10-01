@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SHA3KeccakCore
+﻿namespace SHA3Core
 {
     public class PermuteState
     {
