@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using NUnit.Framework;
@@ -12,7 +13,7 @@ namespace UnitTests.KeccakTests
 {
     public class KeccakTests
     {
-        string sentence = "“The French are certainly misunderstood: — but whether the fault is theirs, in not sufficiently explaining themselves, or speaking with that exact limitation and precision which one would expect on a point of such importance, and which, moreover, is so likely to be contested by us — or whether the fault may not be altogether on our side, in not understanding their language always so critically as to know “what they would be at” — I shall not decide; but ‘tis evident to me, when they affirm, “That they who have seen Paris, have seen every thing,” they must mean to speak of those who have seen it by day-light.”LL";
+        //string sentence = "“The French are certainly misunderstood: — but whether the fault is theirs, in not sufficiently explaining themselves, or speaking with that exact limitation and precision which one would expect on a point of such importance, and which, moreover, is so likely to be contested by us — or whether the fault may not be altogether on our side, in not understanding their language always so critically as to know “what they would be at” — I shall not decide; but ‘tis evident to me, when they affirm, “That they who have seen Paris, have seen every thing,” they must mean to speak of those who have seen it by day-light.”LL";
 
 
         //[Test(Description = "Keccak 128 Test")]
@@ -118,7 +119,8 @@ namespace UnitTests.KeccakTests
 
         //}
 
-        //[TestCaseSource(typeof(SetupTestSharedData), "ReturnSHA3TestCases")]
+        //[TestCaseSource(typeof(SetupTestSharedData), "ReturnSHA3TestCases"), Parallelizable(ParallelScope.Children)]
+        [TestCaseSource(typeof(SetupTestSharedData), "ReturnKeccakTestCases")]
         public string BouncingCastleHash(TestDataValues testDataValues)
         {
 
@@ -134,13 +136,25 @@ namespace UnitTests.KeccakTests
             }
 
 
+            Dictionary<string, string> lookup = new Dictionary<string, string>();
+            lookup.Add("", "0bits");
+            lookup.Add("abc", "24bits");
+            lookup.Add("abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq", "448bits");
+            lookup.Add("abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmnoijklmnopjklmnopqklmnopqrlmnopqrsmnopqrstnopqrstu", "896bits");
+            //lookup.Add("AOneMillion", "AOneMillion");
+            //lookup.Add("Gigabyte", "GigaByte of Data");
 
 
-            //KeccakDigest test = new KeccakDigest(testDataValues.BitLength);
+
+
+
+
+
+            KeccakDigest test = new KeccakDigest(testDataValues.BitLength);
 
             //Sha3Digest test = new Sha3Digest(testDataValues.BitLength);
 
-            ShakeDigest test = new ShakeDigest(testDataValues.BitLength);
+            //ShakeDigest test = new ShakeDigest(testDataValues.BitLength);
 
             var hashValue = new byte[test.GetDigestSize()];
 
@@ -150,20 +164,68 @@ namespace UnitTests.KeccakTests
 
             var result = BitConverter.ToString(hashValue).Replace("-", string.Empty).ToLower();
 
-            string stringtowrite = $"{testDataValues.BitLength}  {result}";
+            string inputMessage;
+            string setname = "";
 
-            using ( StreamWriter output = File.AppendText(@"C:\temp\Shake.Txt"))
+
+            if (testDataValues.InputMessage != null && lookup.ContainsKey(testDataValues.InputMessage))
+            {
+                setname = lookup[testDataValues.InputMessage];
+            }
+
+
+            if (testDataValues.InputMessage != null && testDataValues.InputMessage.Contains("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"))
+            {
+                setname = "AOneMillion";
+            }
+
+            if (testDataValues.InputMessage == null)
+            {
+                inputMessage = "InputBytes";
+                setname = "GigaByte of Data";
+                testDataValues.InputMessage = "GigaByte";
+            }
+            else
+            {
+                inputMessage = "InputMessage";
+            }
+
+            if (setname == "AOneMillion")
+            {
+                testDataValues.InputMessage = "OneMillionA";
+            }
+
+            string stringtowrite = string.Format("Sha3TestDataValues.Add(new TestCaseData(new TestDataValues() {{{3} = \"{0}\",BitLength = {1}}}).Returns(\"{2}\").SetName(\"Keccak-{1}-{4}\"));", testDataValues.InputMessage, testDataValues.BitLength, result, inputMessage, setname);
+
+
+
+            //string generateTestCaseCode = $"Sha3TestDataValues.Add(new TestCaseData(new TestDataValues() {{ InputMessage = "{testDataValues.InputMessage}",BitLength = {} }}).Returns().SetName(""));";
+
+            //string stringtowrite = $"{testDataValues.BitLength}  {result}";
+
+            using (StreamWriter output = File.AppendText(@"C:\temp\keccak.Txt"))
             {
                 output.WriteLine(stringtowrite);
             }
 
 
-            
 
-            Debug.WriteLine(result);
+
+            //Debug.WriteLine(result);
             return result;
         }
 
-        
+
+        //[TestCaseSource(typeof(SetupTestSharedData), "ReturnKeccakTestCases"), Parallelizable(ParallelScope.Children)]
+        //public string KeccakTester(TestDataValues testDataValues)
+        //{
+        //    var sha3 = new Keccak((KeccakBitType)(testDataValues.BitLength));
+        //    var result = testDataValues.InputMessage == null ? sha3.Hash(testDataValues.InputBytes) : sha3.Hash(testDataValues.InputMessage);
+
+
+        //    return result;
+
+        //}
+
     }
 }
