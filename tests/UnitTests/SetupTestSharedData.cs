@@ -22,6 +22,7 @@ namespace UnitTests
         private string OneMillionA;
         private readonly List<TestCaseData> Sha3TestDataValues = new List<TestCaseData>();
         private readonly List<TestCaseData> KeccakTestDataValues = new List<TestCaseData>();
+        private readonly List<TestCaseData> ShakeTestDataValues = new List<TestCaseData>();
 
 
         private SetupTestSharedData()
@@ -31,6 +32,7 @@ namespace UnitTests
             LoadOneMillionA();
             SetupSha3Cases();
             SetupKeccakTestCases();
+            SetupShakeTestCases();
         }
 
         private void LoadOneMillionA()
@@ -48,6 +50,22 @@ namespace UnitTests
                 Array.Copy(test, 0, GigaByte, lastDestination, test.Length);
                 lastDestination += test.Length;
             }
+        }
+
+        private void SetupShakeTestCases()
+        {
+            ShakeTestDataValues.Add(new TestCaseData(new TestDataValues() { InputMessage = "", BitLength = 128 }).Returns("7f9c2ba4e88f827d616045507605853e").SetName("Shake-128-0bits"));
+            ShakeTestDataValues.Add(new TestCaseData(new TestDataValues() { InputMessage = "abc", BitLength = 128 }).Returns("5881092dd818bf5cf8a3ddb793fbcba7").SetName("Shake-128-24bits"));
+            ShakeTestDataValues.Add(new TestCaseData(new TestDataValues() { InputMessage = "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq", BitLength = 128 }).Returns("1a96182b50fb8c7e74e0a707788f55e9").SetName("Shake-128-448bits"));
+            ShakeTestDataValues.Add(new TestCaseData(new TestDataValues() { InputMessage = "abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmnoijklmnopjklmnopqklmnopqrlmnopqrsmnopqrstnopqrstu", BitLength = 128 }).Returns("7b6df6ff181173b6d7898d7ff63fb07b").SetName("Shake-128-896bits"));
+            ShakeTestDataValues.Add(new TestCaseData(new TestDataValues() { InputMessage = OneMillionA, BitLength = 128 }).Returns("9d222c79c4ff9d092cf6ca86143aa411").SetName("Shake-128-AOneMillion"));
+            ShakeTestDataValues.Add(new TestCaseData(new TestDataValues() { InputBytes = GigaByte, BitLength = 128 }).Returns("f4e546891fa8bacea5a159301feebaa4").SetName("Shake-128-GigaByte of Data"));
+            ShakeTestDataValues.Add(new TestCaseData(new TestDataValues() { InputMessage = "", BitLength = 256 }).Returns("46b9dd2b0ba88d13233b3feb743eeb243fcd52ea62b81b82b50c27646ed5762f").SetName("Shake-256-0bits"));
+            ShakeTestDataValues.Add(new TestCaseData(new TestDataValues() { InputMessage = "abc", BitLength = 256 }).Returns("483366601360a8771c6863080cc4114d8db44530f8f1e1ee4f94ea37e78b5739").SetName("Shake-256-24bits"));
+            ShakeTestDataValues.Add(new TestCaseData(new TestDataValues() { InputMessage = "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq", BitLength = 256 }).Returns("4d8c2dd2435a0128eefbb8c36f6f87133a7911e18d979ee1ae6be5d4fd2e3329").SetName("Shake-256-448bits"));
+            ShakeTestDataValues.Add(new TestCaseData(new TestDataValues() { InputMessage = "abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmnoijklmnopjklmnopqklmnopqrlmnopqrsmnopqrstnopqrstu", BitLength = 256 }).Returns("98be04516c04cc73593fef3ed0352ea9f6443942d6950e29a372a681c3deaf45").SetName("Shake-256-896bits"));
+            ShakeTestDataValues.Add(new TestCaseData(new TestDataValues() { InputMessage = OneMillionA, BitLength = 256 }).Returns("3578a7a4ca9137569cdf76ed617d31bb994fca9c1bbf8b184013de8234dfd13a").SetName("Shake-256-AOneMillion"));
+            ShakeTestDataValues.Add(new TestCaseData(new TestDataValues() { InputBytes = GigaByte, BitLength = 256 }).Returns("3c23f2c994061ff3041d7e52089972c2d074d281912cc4c7d8475ab6c816d787").SetName("Shake-256-GigaByte of Data"));
 
         }
 
@@ -60,8 +78,6 @@ namespace UnitTests
             KeccakTestDataValues.Add(new TestCaseData(new TestDataValues() { InputMessage = "abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmnoijklmnopjklmnopqklmnopqrlmnopqrsmnopqrstnopqrstu", BitLength = 128 }).Returns("5a1e08d8b4e612154567b2d316b985bc").SetName("Keccak-128-896bits"));
             KeccakTestDataValues.Add(new TestCaseData(new TestDataValues() { InputMessage = OneMillionA, BitLength = 128 }).Returns("79e7c4ad148f96007e7c198e2a0a7897").SetName("Keccak-128-AOneMillion"));
             KeccakTestDataValues.Add(new TestCaseData(new TestDataValues() { InputBytes = GigaByte, BitLength = 128 }).Returns("10e515946dba3b8c17ec5fd36af43b6c").SetName("Keccak-128-GigaByte of Data"));
-
-
 
             KeccakTestDataValues.Add(new TestCaseData(new TestDataValues() { InputMessage = "", BitLength = 224 }).Returns("f71837502ba8e10837bdd8d365adb85591895602fc552b48b7390abd").SetName("Keccak-224-0bits"));
             KeccakTestDataValues.Add(new TestCaseData(new TestDataValues() { InputMessage = "abc", BitLength = 224 }).Returns("c30411768506ebe1c2871b1ee2e87d38df342317300a9b97a95ec6a8").SetName("Keccak-224-24bits"));
@@ -134,5 +150,14 @@ namespace UnitTests
                 yield return KeccakTestDataValue;
             }
         }
+
+        public static IEnumerable<TestCaseData> ReturnShakeTestCases()
+        {
+            foreach (var ShakeTestDataValue in SetupSingleTestSharedData.ShakeTestDataValues)
+            {
+                yield return ShakeTestDataValue;
+            }
+        }
+
     }
 }

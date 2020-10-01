@@ -15,11 +15,6 @@ namespace UnitTests.SHA3Tests
     public class SHA3Tests
     {
 
-
-        //public static IEnumerable<TestCaseData> TestCaseData = SetupTestSharedData.getAllValues();
-
-        
-
         [TestCaseSource(typeof(SetupTestSharedData), "ReturnSHA3TestCases"), Parallelizable(ParallelScope.Children)]
         public string SHA3Tester(TestDataValues testDataValues)
         {
@@ -28,18 +23,7 @@ namespace UnitTests.SHA3Tests
 
 
             return result;
-            
+
         }
-
-        //[TestCaseSource(nameof(TestCaseData))]
-        //public string test2(TestDataValues testDataValues)
-        //{
-        //    var sha3 = new SHA3((SHA3BitType)(testDataValues.BitLength));
-        //    var result = testDataValues.InputMessage == null ? sha3.Hash(testDataValues.InputBytes) : sha3.Hash(testDataValues.InputMessage);
-
-
-        //    return result;
-
-        //}
     }
 }
