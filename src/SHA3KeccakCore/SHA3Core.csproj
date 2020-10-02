@@ -1,11 +1,28 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Authors>Sean de Villiers</Authors>
+    <Description>c# dotnet core native implementation of SHA3, keccak and Shake implementation.</Description>
+    <Copyright></Copyright>
+    <PackageIcon>android-chrome-512x512.png</PackageIcon>
+    <RepositoryType>Git</RepositoryType>
+    <RepositoryUrl>https://github.com/Devillierss/SHA3Core.git</RepositoryUrl>
+    <PackageTags>sha3, keccak, shake, hash, SHA3,algorithm. Hashing</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\Icon\android-chrome-512x512.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
