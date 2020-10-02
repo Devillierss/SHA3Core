@@ -8,7 +8,7 @@ Each of these can be created by passing the corresponding BitType to the class c
 Usage
 
 Create Instance of Algorithm Class
-
+```csharp
 var sha3 = new SHA3(SHA3BitType.S512);
 
 Call Hash method
