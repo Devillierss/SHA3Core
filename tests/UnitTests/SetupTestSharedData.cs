@@ -7,9 +7,6 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using Org.BouncyCastle.Crypto.Tls;
-using Org.BouncyCastle.Math.EC.Rfc7748;
-using Org.BouncyCastle.Math.EC.Rfc8032;
 using SHA3Core;
 
 namespace UnitTests

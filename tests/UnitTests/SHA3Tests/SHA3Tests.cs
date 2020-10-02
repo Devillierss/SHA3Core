@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
-using Org.BouncyCastle.Crypto.Digests;
 using SHA3Core;
 using SHA3Core.Enums;
 using SHA3Core.SHA3;
